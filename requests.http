@@ -21,3 +21,57 @@ Content-Type: application/json
     ],
     "company": "potato inc"
 }
+
+### Tenta criar um usuário inválido
+
+POST /api/v1/users HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "email": "",
+    "password": "1234RT56",
+    "handle": "papas",
+    "name": "Kartofel",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "company": "potato inc"
+}
+
+### Lista chamados
+
+GET /api/v1/chamados HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+### Cria um chamado
+
+POST /api/v1/chamados HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "acao": "TESTAR",
+    "objeto": "TESTE",
+    "detalhamento": "testando o teste para testar",
+    "user": 1
+}
+
+
+### Lista um chamado só 
+
+GET /api/v1/chamados/1 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+
+### Altera Situacao de um chamado 
+
+PATCH /api/v1/chamados/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "situacao": "CANCELADO"
+}
