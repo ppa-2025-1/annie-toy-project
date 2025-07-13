@@ -20,14 +20,17 @@ public class UserBusiness {
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private Set<String> defaultRoles;
+    private IChamados chamados;
     private INotification notification;
 
     public UserBusiness(
+            IChamados chamados,
             INotification notification,
             UserRepository userRepository, 
             RoleRepository roleRepository,
             @Value("${app.user.default.roles}") Set<String> defaultRoles) {
 
+        this.chamados = chamados;
         this.notification = notification;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;   
@@ -86,6 +89,8 @@ public class UserBusiness {
         user.setProfile(profile);
 
         userRepository.save(user); 
+
+        chamados.create(user.getHandle(), user.getId());
 
         notification.send( // AGENDADO (BACKGROUND)
             user.getEmail(),

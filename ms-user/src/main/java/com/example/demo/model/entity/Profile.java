@@ -1,5 +1,7 @@
 package com.example.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,6 +25,7 @@ public class Profile extends BaseEntity {
     private AccountType type;
 
     @OneToOne
+    @JsonIgnore
     private User user;
 
     public User getUser() {
