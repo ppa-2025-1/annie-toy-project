@@ -3,6 +3,8 @@ package com.example.demo.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +19,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import com.example.demo.model.enums.SituacoesChamado;
 
 @Entity
 @Table(name = "chamados")
@@ -33,7 +34,7 @@ public class Chamado extends BaseEntity {
     private String detalhamento;
     
     @Column(nullable = false, length = 255)
-    private SituacoesChamado situacao;
+    private String situacao;
     
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private User user;
@@ -62,11 +63,11 @@ public class Chamado extends BaseEntity {
         this.detalhamento = detalhamento;
     }
 
-    public SituacoesChamado getSituacao() {
+    public String getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(SituacoesChamado situacao) {
+    public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
 

@@ -68,8 +68,6 @@ public class ChamadoController extends AbstractController {
         @Valid
         @RequestBody
         ChamadoSituacao chamadoSituacao, @PathVariable Integer id) {
-            System.out.println(chamadoSituacao.situacao()+"\n\n\n\n\n\n\n\n\n\n");
-
         chamadoBusiness.alterarSituacao(id, chamadoSituacao.situacao());
     }
 }

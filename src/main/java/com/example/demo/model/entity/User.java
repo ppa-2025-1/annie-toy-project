@@ -6,6 +6,10 @@ import java.util.Set;
 
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
