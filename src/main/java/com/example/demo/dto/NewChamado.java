@@ -1,7 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.enums.SituacoesChamado;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

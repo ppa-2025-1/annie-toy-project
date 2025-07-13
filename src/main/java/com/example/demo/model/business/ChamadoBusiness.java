@@ -2,20 +2,21 @@ package com.example.demo.model.business;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.demo.dto.NewChamado;
 import com.example.demo.model.entity.Chamado;
 import com.example.demo.model.entity.User;
-import com.example.demo.model.enums.SituacoesChamado;
 import com.example.demo.repository.ChamadoRepository;
 import com.example.demo.repository.UserRepository;
 
 @Business
 public class ChamadoBusiness {
-    private SituacoesChamado SITUACAO_INICIAL = SituacoesChamado.NOVO;
+    private final String SITUACAO_NOVO = "NOVO";
+    private final String SITUACAO_ANDAMENTO = "ANDAMENTO";
+    private final String SITUACAO_RESOLVIDO = "RESOLVIDO";
+    private final String SITUACAO_CANCELADO = "CANCELADO";
+
+    private final String SITUACAO_INICIAL = SITUACAO_NOVO;
     
     private ChamadoRepository chamadoRepository;
     private UserRepository userRepository;
@@ -54,13 +55,13 @@ public class ChamadoBusiness {
         return chamadoRepository.findAll();
     }
 
-    public void alterarSituacao(Integer chamadoId, SituacoesChamado novaSituacao) {
+    public void alterarSituacao(Integer chamadoId, String novaSituacao) {
         Chamado chamado = getChamado(chamadoId);
         if (chamado == null) {
             throw new IllegalArgumentException("O chamado não existe!");
         }
 
-        SituacoesChamado situacaoAtual = chamado.getSituacao();
+        String situacaoAtual = chamado.getSituacao();
 
         if (!trocaSituacaoValida(situacaoAtual, novaSituacao)) {
             throw new IllegalArgumentException("Troca de situação inválida!");
@@ -80,20 +81,20 @@ public class ChamadoBusiness {
         criarChamado(newChamado);
     }
 
-    private boolean trocaSituacaoValida(SituacoesChamado situacaoAntiga, SituacoesChamado situacaoNova) {
+    private boolean trocaSituacaoValida(String situacaoAntiga, String situacaoNova) {
         switch (situacaoNova) {
-            case RESOLVIDO:
-                if (situacaoAntiga.equals(SituacoesChamado.ANDAMENTO)) {
+            case SITUACAO_RESOLVIDO:
+                if (situacaoAntiga.equals(SITUACAO_ANDAMENTO)) {
                     return true;
                 }
                 break;
-            case ANDAMENTO:
-                if (situacaoAntiga.equals(SituacoesChamado.NOVO)) {
+            case SITUACAO_ANDAMENTO:
+                if (situacaoAntiga.equals(SITUACAO_NOVO)) {
                     return true;
                 }
                 break;
-            case CANCELADO: 
-                if (situacaoAntiga.equals(SituacoesChamado.NOVO) || situacaoAntiga.equals(SituacoesChamado.ANDAMENTO)) {
+            case SITUACAO_CANCELADO: 
+                if (situacaoAntiga.equals(SITUACAO_NOVO) || situacaoAntiga.equals(SITUACAO_ANDAMENTO)) {
                     return true;
                 }
                 break;
