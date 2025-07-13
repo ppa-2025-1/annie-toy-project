@@ -1,0 +1,14 @@
+
+### Enviar e-mail
+
+POST /api/v1/notification HTTP/1.1
+Host: localhost:8082
+Content-Type: application/json
+
+{
+    "recipient": "marciojrtorres@gmail.com",
+    "title": "Sua conta está expirando",
+    "body": "Sua conta expira em 24 de junho de 2025",
+    "media": ["mail", "sms"]
+}
+
